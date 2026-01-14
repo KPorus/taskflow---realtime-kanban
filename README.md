@@ -31,7 +31,7 @@ This project mocks the behavior of the requested **Nest.js** backend:
 6. Watch Tab B update instantly without refreshing.
 7. Create a new task in Tab B; it will appear in Tab A.
 
-## Planned Backend Structure (Nest.js)
+## Planned Backend Structure (NodeJs)
 
 If this were deployed to a real server, the structure would be:
 
