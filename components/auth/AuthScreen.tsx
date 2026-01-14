@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/store';
-import { loginUser, registerUser } from '../../store/slices/authSlice';
 import { Layout, ArrowRight, Eye, EyeOff, Lock, Mail, User } from 'lucide-react';
+import { loginUser, registerUser } from '@/store/slices/helper/authThunks';
 
 export const AuthScreen: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();

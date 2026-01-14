@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RootState, AppDispatch } from '../../store/store';
-import { createTeam } from '../../store/slices/dataSlice';
 import { logout } from '../../store/slices/authSlice';
 import { Layout, LogOut, Plus, Hash, X } from 'lucide-react';
 import { Modal } from '../ui/Modal';
+import { createTeam } from '@/store/slices/helper/dataThunks';
 
 interface SidebarProps {
   isOpen: boolean;
