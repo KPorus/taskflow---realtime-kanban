@@ -45,7 +45,7 @@ The frontend connects to a remote REST/WebSocket API (hosted at render) which im
 
 1.  **Clone the repository**
     ```bash
-    git clone https://github.com/yourusername/taskflow.git
+    git clone https://github.com/yourusername/TaskFlow-frontend-service.git
     cd taskflow
     ```
 
@@ -71,5 +71,6 @@ To experience the collaborative nature of TaskFlow:
 4.  In Window A, add User 2 to "Alpha Squad".
 5.  *Watch as the team instantly appears in Window B's sidebar.*
 6.  Drag a task in Window A; observe it move instantly in Window B.
+
 
 
