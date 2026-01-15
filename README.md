@@ -65,8 +65,11 @@ The frontend connects to a remote REST/WebSocket API (hosted at render) which im
 To experience the collaborative nature of TaskFlow:
 
 1.  Open **Browser Window A** and log in (or register) as User 1.
-2.  Create a Team (e.g., "Alpha Squad").
+2.  Create a team called (“Alpha Squad”), then click the icon indicated in the image.
+![Team](image.png)
 3.  Open **Browser Window B** (Incognito/Private) and register as User 2.
 4.  In Window A, add User 2 to "Alpha Squad".
 5.  *Watch as the team instantly appears in Window B's sidebar.*
 6.  Drag a task in Window A; observe it move instantly in Window B.
+
+
