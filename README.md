@@ -45,7 +45,7 @@ The frontend connects to a remote REST/WebSocket API (hosted at render) which im
 
 1.  **Clone the repository**
     ```bash
-    git clone https://github.com/yourusername/taskflow.git
+    git clone https://github.com/yourusername/TaskFlow-frontend-service.git
     cd taskflow
     ```
 
