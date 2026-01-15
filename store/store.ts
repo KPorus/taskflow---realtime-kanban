@@ -3,7 +3,6 @@ import { configureStore, ThunkDispatch, UnknownAction } from '@reduxjs/toolkit';
 import authReducer from './slices/authSlice';
 import dataReducer from './slices/dataSlice';
 
-// Configure the Redux store with auth and data reducers
 export const store = configureStore({
   reducer: {
     auth: authReducer,
