@@ -45,9 +45,9 @@ const dataSlice = createSlice({
         }
       })
       .addCase(createTeam.fulfilled, (state, action) => {
-        // state.teams.push(action.payload);
-        // state.activeTeamId = action.payload.id;
-        applyCreateTeam(state,action)
+        state.teams.push(action.payload);
+        state.activeTeamId = action.payload.id;
+        // applyCreateTeam(state,action)
       })
       .addCase(deleteTeam.fulfilled, (state, action) => {
         state.teams = state.teams.filter((t) => t.id !== action.payload);
@@ -91,7 +91,7 @@ export const {
   socketTaskUpdated,
   socketTaskDeleted,
   socketTeamUpdated,
-  socketTeamCreated,
+  // socketTeamCreated,
 } = dataSlice.actions;
 
 export default dataSlice.reducer;
