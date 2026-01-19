@@ -1,9 +1,9 @@
 import { io, Socket } from "socket.io-client";
 
-// const URL = "https://task-monitor-swart.vercel.app/api/v1";
 const URL = "https://task-monitor-backend-service.onrender.com";
+// const URL = "http://localhost:5001";
 
-export const socket:Socket = io(URL, {
+export const socket: Socket = io(URL, {
   transports: ["websocket"],
   autoConnect: true,
   withCredentials: true,
@@ -23,6 +23,7 @@ export const SOCKET_EVENTS = {
   TASK_ASSIGNED: "taskAssign",
   TASK_DELETED: "taskDelete",
 
+  TEAM_DELETE: "teamDeleted",
   TEAM_MEMBER_ADDED: "teamMemberAdd",
   TEAM_MEMBER_REMOVED: "teamMemberRemove",
 };

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { DataState } from "../../types";
-import { applyTeamUpdated,applyCreateTeam, setActiveTeam } from "./helper/teamReducers";
+import { applyTeamUpdated,setActiveTeam, applyDeleteTeam } from "./helper/teamReducers";
 import { socketReducers } from "./helper/socketReducers";
 import {
   addTeamMember,
@@ -50,16 +50,19 @@ const dataSlice = createSlice({
         // applyCreateTeam(state,action)
       })
       .addCase(deleteTeam.fulfilled, (state, action) => {
-        state.teams = state.teams.filter((t) => t.id !== action.payload);
-        if (state.activeTeamId === action.payload) {
-          state.activeTeamId =
-            state.teams.length > 0 ? state.teams[0].id : null;
-        }
+        applyDeleteTeam(state, action)
+        // console.log(action.payload);
+        // state.teams = state.teams.filter((t) => t.id !== action.payload);
+        // if (state.activeTeamId === action.payload) {
+        //   state.activeTeamId =
+        //     state.teams.length > 0 ? state.teams[0].id : null;
+        // }
       })
       .addCase(addTeamMember.fulfilled, (state, action) => {
         applyTeamUpdated(state, action);
       })
       .addCase(removeTeamMember.fulfilled, (state, action) => {
+        console.log(state,action);
         applyTeamUpdated(state, action);
       })
       .addCase(fetchTasks.fulfilled, (state, action) => {
@@ -91,6 +94,7 @@ export const {
   socketTaskUpdated,
   socketTaskDeleted,
   socketTeamUpdated,
+  socketTeamDelete
   // socketTeamCreated,
 } = dataSlice.actions;
 

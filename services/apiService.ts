@@ -80,7 +80,7 @@ export const ApiService = {
     delete: async (teamId: string) => {
       await request(`/team/delete-team`, {
         method: "DELETE",
-        body: JSON.stringify({ id: teamId }),
+        body: JSON.stringify({ teamId: teamId }),
       });
       return teamId;
     },

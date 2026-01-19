@@ -6,7 +6,7 @@ export const setActiveTeam = (
   action: PayloadAction<string>
 ) => {
   state.activeTeamId = action.payload;
-  state.tasks = []
+  state.tasks = [];
 };
 // export const applyCreateTeam=(state:DataState,action:PayloadAction<Team>)=>{
 //     state.teams.push(action.payload);
@@ -19,8 +19,22 @@ export const applyTeamUpdated = (
   const index = state.teams.findIndex((t) => t.id === action.payload.id);
   if (index !== -1) {
     state.teams[index] = action.payload;
-  }
-  else{
+  } else {
     state.teams.push(action.payload);
+  }
+};
+export const applyDeleteTeam = (
+  state: DataState,
+  action: PayloadAction<string>
+) => {
+  state.teams = state.teams.filter((t) => t.id !== action.payload);
+  console.log("inside apply deleteteam", state.teams);
+  console.log("inside ",state.activeTeamId);
+  if (state.activeTeamId == action.payload) {
+    state.activeTeamId = state.teams.length > 0 ? state.teams[0].id : null;
+    console.log(
+      "inside deleteteam condition: ",
+      state.activeTeamId
+    );
   }
 };

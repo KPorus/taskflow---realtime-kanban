@@ -6,6 +6,7 @@ import {
   socketTaskUpdated,
   socketTaskDeleted,
   socketTeamUpdated,
+  socketTeamDelete,
 } from "../store/slices/dataSlice";
 import { socket, SOCKET_EVENTS } from "../services/socket";
 import type { AppDispatch } from "../store/store";
@@ -36,10 +37,16 @@ export const useTeamSocket = (activeTeamId?: string) => {
       if (rawTeam) dispatch(socketTeamUpdated(mapTeam(rawTeam)));
     };
 
+    const handleTeamDelete = (data: any) => {
+      console.log(data?.teamId);
+      if (data?.teamId) dispatch(socketTeamDelete(data?.teamId));
+    };
+
     socket.on(SOCKET_EVENTS.TASK_CREATED, handleTaskCreated);
     socket.on(SOCKET_EVENTS.TASK_UPDATED, handleTaskUpdated);
     socket.on(SOCKET_EVENTS.TASK_ASSIGNED, handleTaskUpdated);
     socket.on(SOCKET_EVENTS.TASK_DELETED, handleTaskDeleted);
+    socket.on(SOCKET_EVENTS.TEAM_DELETE, handleTeamDelete);
     socket.on(SOCKET_EVENTS.TEAM_MEMBER_ADDED, handleTeamUpdated);
     socket.on(SOCKET_EVENTS.TEAM_MEMBER_REMOVED, handleTeamUpdated);
 
@@ -48,6 +55,7 @@ export const useTeamSocket = (activeTeamId?: string) => {
       socket.off(SOCKET_EVENTS.TASK_UPDATED, handleTaskUpdated);
       socket.off(SOCKET_EVENTS.TASK_ASSIGNED, handleTaskUpdated);
       socket.off(SOCKET_EVENTS.TASK_DELETED, handleTaskDeleted);
+      socket.off(SOCKET_EVENTS.TEAM_DELETE, handleTeamDelete);
       socket.off(SOCKET_EVENTS.TEAM_MEMBER_ADDED, handleTeamUpdated);
       socket.off(SOCKET_EVENTS.TEAM_MEMBER_REMOVED, handleTeamUpdated);
     };

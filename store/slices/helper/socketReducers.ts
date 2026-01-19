@@ -5,7 +5,7 @@ import {
   applyTaskUpdated,
   applyTaskDeleted,
 } from "./taskReducers";
-import { applyTeamUpdated,applyCreateTeam } from "./teamReducers";
+import { applyTeamUpdated, applyDeleteTeam } from "./teamReducers";
 
 export const socketReducers = {
   socketTaskCreated: applySocketTaskCreated,
@@ -14,6 +14,10 @@ export const socketReducers = {
   socketTeamUpdated: applyTeamUpdated as (
     state: DataState,
     action: PayloadAction<Team>
+  ) => void,
+  socketTeamDelete: applyDeleteTeam as (
+    state: DataState,
+    action: PayloadAction<string>
   ) => void,
   // socketTeamCreated:applyCreateTeam as (state: DataState, action: PayloadAction<Team>)=>void
 };
