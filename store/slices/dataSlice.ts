@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { DataState } from "../../types";
-import { applyTeamUpdated, setActiveTeam } from "./helper/teamReducers";
+import { applyTeamUpdated,applyCreateTeam, setActiveTeam } from "./helper/teamReducers";
 import { socketReducers } from "./helper/socketReducers";
 import {
   addTeamMember,
@@ -45,8 +45,9 @@ const dataSlice = createSlice({
         }
       })
       .addCase(createTeam.fulfilled, (state, action) => {
-        state.teams.push(action.payload);
-        state.activeTeamId = action.payload.id;
+        // state.teams.push(action.payload);
+        // state.activeTeamId = action.payload.id;
+        applyCreateTeam(state,action)
       })
       .addCase(deleteTeam.fulfilled, (state, action) => {
         state.teams = state.teams.filter((t) => t.id !== action.payload);
