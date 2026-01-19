@@ -64,6 +64,7 @@ const dataSlice = createSlice({
       })
       .addCase(fetchTasks.fulfilled, (state, action) => {
         state.tasks = action.payload;
+        state.loading=false;
       })
       .addCase(fetchTasks.pending, (state) => {
         state.loading = true;
