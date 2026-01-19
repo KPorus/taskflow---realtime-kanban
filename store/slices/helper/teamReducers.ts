@@ -6,6 +6,7 @@ export const setActiveTeam = (
   action: PayloadAction<string>
 ) => {
   state.activeTeamId = action.payload;
+  state.task = []
 };
 
 export const applyTeamUpdated = (
