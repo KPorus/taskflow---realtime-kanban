@@ -90,6 +90,7 @@ export const {
   socketTaskUpdated,
   socketTaskDeleted,
   socketTeamUpdated,
+  socketTeamCreated,
 } = dataSlice.actions;
 
 export default dataSlice.reducer;
