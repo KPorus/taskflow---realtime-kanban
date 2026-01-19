@@ -15,5 +15,5 @@ export const socketReducers = {
     state: DataState,
     action: PayloadAction<Team>
   ) => void,
-  socketTeamCreated:applyCreateTeam as (state: DataState, action: PayloadAction<Team>)=>void
+  // socketTeamCreated:applyCreateTeam as (state: DataState, action: PayloadAction<Team>)=>void
 };
