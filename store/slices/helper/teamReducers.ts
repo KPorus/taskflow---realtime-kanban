@@ -8,7 +8,10 @@ export const setActiveTeam = (
   state.activeTeamId = action.payload;
   state.task = []
 };
-
+export const applyCreateTeam=(state:DataState,action:PayloadAction<Team>)=>{
+    state.teams.push(action.payload);
+    state.activeTeamId = action.payload.id;
+}
 export const applyTeamUpdated = (
   state: DataState,
   action: PayloadAction<Team>
