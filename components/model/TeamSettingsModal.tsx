@@ -27,7 +27,7 @@ export const TeamSettingsModal: React.FC<Props> = ({
   onDeleteTeam,
 }) => {
   const [selectedUserIdToAdd, setSelectedUserIdToAdd] = useState("");
-  console.log(team);
+  // console.log(team);
   const handleAdd = () => {
     if (selectedUserIdToAdd) {
       onAddMember(selectedUserIdToAdd);
