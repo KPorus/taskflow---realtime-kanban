@@ -28,13 +28,7 @@ export const applyDeleteTeam = (
   action: PayloadAction<string>
 ) => {
   state.teams = state.teams.filter((t) => t.id !== action.payload);
-  console.log("inside apply deleteteam", state.teams);
-  console.log("inside ",state.activeTeamId);
   if (state.activeTeamId == action.payload) {
     state.activeTeamId = state.teams.length > 0 ? state.teams[0].id : null;
-    console.log(
-      "inside deleteteam condition: ",
-      state.activeTeamId
-    );
   }
 };

@@ -16,6 +16,7 @@ import {
   fetchAllUsers,
   addTeamMember,
   removeTeamMember,
+  fetchTeams,
 } from "../../store/slices/helper/dataThunks";
 import { TaskStatus, TaskPriority, Task, User, Team } from "../../types";
 import { BoardColumn } from "./BoardColumn";
@@ -67,9 +68,9 @@ export const BoardView: React.FC = () => {
   const [newTaskStatus, setNewTaskStatus] = useState<TaskStatus>(
     TaskStatus.TODO
   );
-  console.log("team", currentTeam);
-  console.log("tasks", tasks);
-  console.log(activeTeamId);
+  // console.log("team", currentTeam);
+  // console.log("tasks", tasks);
+  // console.log(activeTeamId);
   useEffect(() => {
     if (!activeTeamId) return;
 

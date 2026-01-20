@@ -5,7 +5,7 @@ import { RootState, AppDispatch } from '../../store/store';
 import { logout } from '../../store/slices/authSlice';
 import { Layout, LogOut, Plus, Hash, X } from 'lucide-react';
 import { Modal } from '../ui/Modal';
-import { createTeam } from '@/store/slices/helper/dataThunks';
+import { createTeam, fetchTeams } from '@/store/slices/helper/dataThunks';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -31,6 +31,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         setNewTeamName('');
         setIsTeamModalOpen(false);
         onClose();
+        dispatch(fetchTeams());
         navigate(`/dashboard/${resultAction.payload.id}`);
       }
     }

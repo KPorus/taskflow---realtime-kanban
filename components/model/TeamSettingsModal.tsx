@@ -27,13 +27,17 @@ export const TeamSettingsModal: React.FC<Props> = ({
   onDeleteTeam,
 }) => {
   const [selectedUserIdToAdd, setSelectedUserIdToAdd] = useState("");
-
+  console.log(team);
   const handleAdd = () => {
     if (selectedUserIdToAdd) {
       onAddMember(selectedUserIdToAdd);
       setSelectedUserIdToAdd("");
     }
   };
+  const members = React.useMemo(() => {
+    if (team) return team?.members;
+    return [];
+  }, [team]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Team Settings">
@@ -45,11 +49,9 @@ export const TeamSettingsModal: React.FC<Props> = ({
           </h4>
 
           <div className="space-y-2 mb-4 max-h-48 overflow-y-auto pr-1">
-            {team?.members.map((member) => {
+            {members.map((member) => {
               const memberUser =
-                typeof member.user === "object"
-                  ? (member.user as User)
-                  : null;
+                typeof member.user === "object" ? (member.user as User) : null;
               if (!memberUser) return null;
               const isSelf = memberUser.id === currentUser?.id;
 
