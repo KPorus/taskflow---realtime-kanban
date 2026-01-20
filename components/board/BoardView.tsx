@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, useOutletContext, useNavigate } from "react-router-dom";
+import {
+  useParams,
+  useOutletContext,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
 import { RootState, AppDispatch } from "../../store/store";
 import {
   updateTask,
@@ -32,8 +37,29 @@ export const BoardView: React.FC = () => {
 
   const { tasks, users, teams } = useSelector((state: RootState) => state.data);
   const { user: currentUser } = useSelector((state: RootState) => state.auth);
-  const currentTeam = teams.find((t) => t.id === teamId);
+  // let currentTeam = teams.find((t) => t.id === teamId);
 
+  const teamdata = teams.find((t) => t.id === teamId);
+
+  const activeTeamId = React.useMemo(() => {
+    if (teamdata?.id) return teamdata.id;
+    if (teams.length > 0) return teams[0].id;
+    return null;
+  }, [teamdata, teams]);
+
+  const currentTeam = React.useMemo(() => {
+    if (!activeTeamId) return null;
+    return teams.find((t) => t.id === activeTeamId) || null;
+  }, [activeTeamId, teams]);
+
+  // const activeTeamId = React.useMemo(() => {
+  //   if (currentTeam?.id) return teamId;
+  //   if (teams?.length) return teams[0].id;
+  //   return null;
+  // }, [currentTeam, teamId, teams]);
+  // if (!currentTeam) {
+  //   currentTeam = teams.find((t) => t.id === activeTeamId);
+  // }
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
   const [isTeamSettingsOpen, setIsTeamSettingsOpen] = useState(false);
@@ -41,14 +67,16 @@ export const BoardView: React.FC = () => {
   const [newTaskStatus, setNewTaskStatus] = useState<TaskStatus>(
     TaskStatus.TODO
   );
-
+  console.log("team", currentTeam);
+  console.log("tasks", tasks);
+  console.log(activeTeamId);
   useEffect(() => {
-    if (teamId) {
-      dispatch(setActiveTeamAction(teamId));
-      dispatch(fetchTasks(teamId));
-      dispatch(fetchAllUsers());
-    }
-  }, [teamId, dispatch]);
+    if (!activeTeamId) return;
+
+    dispatch(setActiveTeamAction(activeTeamId));
+    dispatch(fetchTasks(activeTeamId));
+    dispatch(fetchAllUsers());
+  }, [activeTeamId, teamId, dispatch]);
 
   const handleDropTask = (taskId: string, newStatus: TaskStatus) => {
     dispatch(
@@ -122,22 +150,22 @@ export const BoardView: React.FC = () => {
   };
 
   const handleDeleteTeam = async () => {
-    if (teamId) {
-      await dispatch(deleteTeam(teamId));
+    if (activeTeamId) {
+      await dispatch(deleteTeam(activeTeamId));
       setIsTeamSettingsOpen(false);
       navigate("/dashboard");
     }
   };
 
   const handleAddMember = async (userId: string) => {
-    if (teamId && userId) {
-      await dispatch(addTeamMember({ teamId, userId }));
+    if (activeTeamId && userId) {
+      await dispatch(addTeamMember({ teamId:activeTeamId, userId }));
     }
   };
 
   const handleRemoveMember = async (userId: string) => {
-    if (teamId) {
-      await dispatch(removeTeamMember({ teamId, userId }));
+    if (activeTeamId) {
+      await dispatch(removeTeamMember({ teamId:activeTeamId, userId }));
     }
   };
 
@@ -154,10 +182,15 @@ export const BoardView: React.FC = () => {
       .map((m) => m.user as User) || [];
 
   const availableUsers = users.filter(
-    (u) => !currentTeam?.members.some(
-      (m) => (typeof m.user === "object" ? m.user.id : m.user) === u.id
-    )
+    (u) =>
+      !currentTeam?.members.some(
+        (m) => (typeof m.user === "object" ? m.user.id : m.user) === u.id
+      )
   );
+
+  if (!activeTeamId && !currentTeam) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   return (
     <div id="board-view-component--ts" className="flex flex-col h-full w-full">
@@ -168,7 +201,10 @@ export const BoardView: React.FC = () => {
         onOpenTeamSettings={() => setIsTeamSettingsOpen(true)}
       />
 
-      <div id="board-view-body--ts" className="flex-1 overflow-x-auto overflow-y-hidden p-4 sm:p-6 bg-gray-50">
+      <div
+        id="board-view-body--ts"
+        className="flex-1 overflow-x-auto overflow-y-hidden p-4 sm:p-6 bg-gray-50"
+      >
         <div className="h-full flex gap-4 sm:gap-6 min-w-full lg:min-w-max pb-2">
           {Object.values(TaskStatus).map((status) => (
             <BoardColumn
